@@ -129,6 +129,13 @@
 
             fetchstudent();
 
+            function getCorrectData(str)
+            {
+                let arr = str.split("T");
+                arr[1] = arr[1].substring(0, 8);
+                return arr.join(' ');
+            }
+
             function fetchstudent() {
                 $.ajax({
                     type: "GET",
@@ -143,7 +150,7 @@
                             <td>' + item.id + '</td>\
                             <td>' + item.fullName + '</td>\
                             <td>' + item.course + '</td>\
-                            <td>' + item.updated_at + '</td>\
+                            <td>' + getCorrectData(item.updated_at) + '</td>\
                             <td><button type="button" value="' + item.id + '" class="btn btn-primary editbtn btn-sm">Edit</button></td>\
                             <td><button type="button" value="' + item.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button></td>\
                         \</tr>');
