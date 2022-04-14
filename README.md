@@ -1,42 +1,48 @@
-## Запуск
-
-`make setup`
-
-`make instal`
-
-Добавляем конфиг для бд в .env файл можно посмотреть в docker-compose.yaml
-
-Добавляем права при необходимости на папку `storage`
-
-Проверяем в браузере [localhost:8085](http://localhost:8085/)
-
-## Тест
-
-Перед запуском тестов нужно убедится что есть файл .env.testing
-если его нет пишем `cp -n .env.example .env.testing || true`
-и в нем настроен конфиг для тестовой базы данных который можно посмотреть
-в `docker-compose.yaml`
-Так же в нем должен быть APP_KEY, если нет пишем
-
-`php artisan key:generate --env=testing`
-
-Запуск тестов
-`make test`
-
-
 ## Конфиг
 * **php** = 8.0-fpm
 * **nginx** = 1.17
 * **postgres** = 12
 
 
+## Запуск на виндовс
+Пишем в корневой директории в консоли
+
+`docker-compose up --build -d`
+
+после сборки докер контейнеров по вводим:
+
+`docker exec -it esvet-php-fpm composer install`
+
+`cp -n .env.example .env || true`
+
+`php artisan key:generate`
+
+`docker exec -it esvet-php-fpm php artisan migrate`
+
+
+Проверяем в браузере [localhost:8085](http://localhost:8085/)
+
+
+## Запуск на linux
+
+`make setup`
+
+`make install`
+
+
+Добавляем скорее всего на unix системах нужно добавить права на папки
+
+`/storage/logs` и `/storage/frameworks` и `/bootstrap/cache`,
+
+для этого нужно выполнить пункты из раздела `Возможные проблемы`
+
+Проверяем в браузере [localhost:8085](http://localhost:8085/)
 
 ## Возможные проблемы
 
-Если есть проблемы с доступам к папкам,
-`/storage/logs` и `/storage/frameworks` и `/bootstrap/cache`,
-обычно бывает при работе на unix. Заходим на пк через терминал в рабочую
-дерикторию и делаем следующее.
+Если проект не запускается на linux, скорее всего проблемы с доступам к папкам,
+`/storage/logs` и `/storage/frameworks` и `/bootstrap/cache`, .
+Заходим на пк через терминал в рабочую дерикторию и делаем следующее.
 
 
 Заходим в корень проекта пишем:
@@ -59,7 +65,7 @@
 
 `sudo chmod -R 775 ./bootstrap/cache`
 
-Если все равно есть проблемы делаем так
+Если все равно остались проблемы, пишем в консоли
 
 `sudo chown -R $USER:www-data storage`
 
