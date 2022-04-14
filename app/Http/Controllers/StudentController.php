@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -34,14 +35,11 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-        $validated = $request->validate([
-            'fullName' => 'required',
-            'course' => 'required',
-        ]);
+        $data = $request->validated();
         $student = new Student();
-        $student->fill($validated);
+        $student->fill($data);
         $student->save();
         return redirect()
             ->route('students.index')->with('success', 'Student added successfully!');
