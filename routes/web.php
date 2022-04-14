@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\AjaxStudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +16,17 @@ use App\Http\Controllers\HomePageController;
 |
 */
 
-Route::get('/', [HomePageController::class, "index"])->name("homepage");
+//Route::get('/', [HomePageController::class, "index"])->name("homepage");
 
 Route::resources([
     "students" => StudentController::class,
 ]);
+Route::get('/', [AjaxStudentController::class, 'index'])->name("ajax-homePage");
+Route::post('ajax-students', [AjaxStudentController::class, 'store']);
+Route::get('ajax-fetch-students', [AjaxStudentController::class, 'fetchstudent']);
+Route::get('ajax-edit-student/{id}', [AjaxStudentController::class, 'edit']);
+Route::put('ajax-update-student/{id}', [AjaxStudentController::class, 'update']);
+Route::delete('ajax-delete-student/{id}', [AjaxStudentController::class, 'destroy']);
 
-Route::get("/title", function () {
-    $title = "test23423";
-    return view("test", compact("title"));
-});
 
 //Route::get('/users', [\App\Http\Controllers\TestController::class, "index"]);

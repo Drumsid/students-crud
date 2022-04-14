@@ -23,10 +23,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route("homepage") }}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ route("ajax-homePage") }}">Ajax student index page <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("students.index") }}">Students</a>
+                <a class="nav-link" href="{{ route("students.index") }}">NO ajax student index page</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -62,5 +62,6 @@
 
 </script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+@yield('scripts')
 </body>
 </html>
