@@ -8,11 +8,17 @@ use Illuminate\Support\Facades\Validator;
 
 class AjaxStudentController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
     public function index()
     {
         return view('ajaxStudents.index');
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function fetchstudent()
     {
         $students = Student::all();
@@ -21,12 +27,18 @@ class AjaxStudentController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'fullName'=> 'required|max:191',
-            'course'=>'required|max:191',
+            'fullName' => 'required|min:3|max:120',
+            'course' => 'required|min:3|max:120',
         ]);
+
 
         if($validator->fails())
         {
@@ -38,8 +50,7 @@ class AjaxStudentController extends Controller
         else
         {
             $student = new Student;
-            $student->fullName = $request->input('fullName');
-            $student->course = $request->input('course');
+            $student->fill($validator->validated());
             $student->save();
             return response()->json([
                 'status'=>200,
@@ -49,6 +60,10 @@ class AjaxStudentController extends Controller
 
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function edit($id)
     {
         $student = Student::find($id);
@@ -69,11 +84,17 @@ class AjaxStudentController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'fullName'=> 'required|max:191',
-            'course'=>'required|max:191',
+            'fullName' => 'required|min:3|max:120',
+            'course' => 'required|min:3|max:120',
         ]);
 
         if($validator->fails())
@@ -88,10 +109,7 @@ class AjaxStudentController extends Controller
             $student = Student::find($id);
             if($student)
             {
-                $student->fullName = $request->input('fullName');
-                $student->course = $request->input('course');
-
-                $student->update();
+                $student->update($validator->validated());
                 return response()->json([
                     'status'=>200,
                     'message'=>'Student Updated Successfully.'
@@ -108,6 +126,10 @@ class AjaxStudentController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy($id)
     {
         $student = Student::find($id);
@@ -127,4 +149,5 @@ class AjaxStudentController extends Controller
             ]);
         }
     }
+
 }

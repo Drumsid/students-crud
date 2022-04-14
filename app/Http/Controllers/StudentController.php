@@ -77,8 +77,7 @@ class StudentController extends Controller
     public function update(StudentRequest $request, Student $student)
     {
         $data = $request->validated();
-        $student->fill($data);
-        $student->save();
+        $student->update($data);
         return redirect()
             ->route('students.index')->with('success', 'Student update successfully!');
     }
