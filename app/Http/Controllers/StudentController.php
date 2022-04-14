@@ -42,7 +42,7 @@ class StudentController extends Controller
         $student->fill($data);
         $student->save();
         return redirect()
-            ->route('students.index')->with('success', 'Student added successfully!');
+            ->route('homepage')->with('success', 'Student added successfully!');
     }
 
     /**
@@ -80,7 +80,7 @@ class StudentController extends Controller
         $student->fill($data);
         $student->save();
         return redirect()
-            ->route('students.index')->with('success', 'Student update successfully!');
+            ->route('homepage')->with('success', 'Student update successfully!');
     }
 
     /**
@@ -93,6 +93,6 @@ class StudentController extends Controller
     {
         $student->delete();
         return redirect()
-            ->route('students.index')->with('success', 'Student deleted successfully!');
+            ->route('homepage')->with('success', 'Student deleted successfully!');
     }
 }

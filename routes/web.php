@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\HomePageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,7 @@ use App\Http\Controllers\StudentController;
 |
 */
 
-Route::get('/', function () {
-    return view('homepage');
-})->name("homepage");
+Route::get('/', [HomePageController::class, "index"])->name("homepage");
 
 Route::resources([
     "students" => StudentController::class,
