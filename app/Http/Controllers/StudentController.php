@@ -41,9 +41,8 @@ class StudentController extends Controller
         $student = new Student();
         $student->fill($data);
         $student->save();
-        return response()->json(['success'=>'Laravel ajax example is being processed.']);
-//        return redirect()
-//            ->route('homepage')->with('success', 'Student added successfully!');
+        return redirect()
+            ->route('students.index')->with('success', 'Student added successfully!');
     }
 
     /**
@@ -81,7 +80,7 @@ class StudentController extends Controller
         $student->fill($data);
         $student->save();
         return redirect()
-            ->route('homepage')->with('success', 'Student update successfully!');
+            ->route('students.index')->with('success', 'Student update successfully!');
     }
 
     /**
@@ -94,6 +93,6 @@ class StudentController extends Controller
     {
         $student->delete();
         return redirect()
-            ->route('homepage')->with('success', 'Student deleted successfully!');
+            ->route('students.index')->with('success', 'Student deleted successfully!');
     }
 }

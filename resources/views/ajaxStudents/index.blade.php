@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary add_student">Save</button>
                 </div>
 
@@ -60,17 +60,9 @@
                         <label for="">Course</label>
                         <input type="text" id="course" required class="form-control">
                     </div>
-{{--                    <div class="form-group mb-3">--}}
-{{--                        <label for="">Email</label>--}}
-{{--                        <input type="text" id="email" required class="form-control">--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group mb-3">--}}
-{{--                        <label for="">Phone No</label>--}}
-{{--                        <input type="text" id="phone" required class="form-control">--}}
-{{--                    </div>--}}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary update_student">Update</button>
                 </div>
 
@@ -103,27 +95,21 @@
     </div>
     {{-- End - Delete Modal --}}
 
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-md-12">
 
+                <h1>Ajax students index Page</h1>
                 <div id="success_message"></div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h4>
-                            Student Data
-                            <button type="button" class="btn btn-primary float-end" data-toggle="modal"
-                                    data-target="#AddStudentModal">Add Student</button>
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-bordered">
+                <button type="button" class="btn btn-primary mt-5 mb-5" data-toggle="modal"
+                    data-target="#AddStudentModal">Add Student</button>
+{{--                <div class="card">--}}
+{{--                    <div class="card-body">--}}
+                        <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
+                                <th>№</th>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Course</th>
+                                <th>Data</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -131,11 +117,8 @@
                             <tbody>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--                    </div>--}}
+{{--                </div>--}}
 
 @endsection
 
@@ -156,9 +139,11 @@
                         $('tbody').html("");
                         $.each(response.students, function (key, item) {
                             $('tbody').append('<tr>\
+                            <td>' + (key + 1) + '</td>\
                             <td>' + item.id + '</td>\
                             <td>' + item.fullName + '</td>\
                             <td>' + item.course + '</td>\
+                            <td>' + item.updated_at + '</td>\
                             <td><button type="button" value="' + item.id + '" class="btn btn-primary editbtn btn-sm">Edit</button></td>\
                             <td><button type="button" value="' + item.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button></td>\
                         \</tr>');
@@ -205,6 +190,7 @@
                             $('.add_student').text('Save');
                             $('#AddStudentModal').modal('hide');
                             fetchstudent();
+                            fadeOutMsg();
                         }
                     }
                 });
@@ -228,8 +214,6 @@
                             // console.log(response.student.fullName);
                             $('#fullName').val(response.student.fullName);
                             $('#course').val(response.student.course);
-                            // $('#email').val(response.student.email);
-                            // $('#phone').val(response.student.phone);
                             $('#stud_id').val(stud_id);
                         }
                     }
@@ -280,6 +264,7 @@
                             $('.update_student').text('Update');
                             $('#editModal').modal('hide');
                             fetchstudent();
+                            fadeOutMsg();
                         }
                     }
                 });
@@ -321,10 +306,23 @@
                             $('.delete_student').text('Yes Delete');
                             $('#DeleteModal').modal('hide');
                             fetchstudent();
+                            fadeOutMsg();
                         }
                     }
                 });
             });
+
+            $(document).on('click', '.close-btn', function () {
+                $('#save_msgList').html("");
+                $('#save_msgList').removeClass('alert alert-danger');
+                $('#update_msgList').html("");
+                $('#update_msgList').removeClass('alert alert-danger');
+            })
+
+            function fadeOutMsg()
+            {
+                $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+            }
 
         });
 
