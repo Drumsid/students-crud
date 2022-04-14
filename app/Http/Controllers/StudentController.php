@@ -32,7 +32,7 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StudentRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StudentRequest $request)
@@ -48,45 +48,51 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Student $student
+     * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Student $student)
     {
-        //
+        return view("students.show", compact("student"));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Student $student
+     * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Student $student)
     {
-        //
+        return view("students.edit", compact("student"));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StudentRequest  $request
+     * @param  \App\Models\Student $student
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(StudentRequest $request, Student $student)
     {
-        //
+        $data = $request->validated();
+        $student->fill($data);
+        $student->save();
+        return redirect()
+            ->route('students.index')->with('success', 'Student update successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Student $student
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return redirect()
+            ->route('students.index')->with('success', 'Student deleted successfully!');
     }
 }
