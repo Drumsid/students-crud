@@ -100,8 +100,7 @@
                 <div id="success_message"></div>
                 <button type="button" class="btn btn-primary mt-5 mb-5" data-toggle="modal"
                     data-target="#AddStudentModal">Add Student</button>
-{{--                <div class="card">--}}
-{{--                    <div class="card-body">--}}
+                    <div class="table-responsive">
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
@@ -117,8 +116,7 @@
                             <tbody>
                             </tbody>
                         </table>
-{{--                    </div>--}}
-{{--                </div>--}}
+                    </div>
 
 @endsection
 
@@ -150,7 +148,7 @@
                             <td>' + item.id + '</td>\
                             <td>' + item.fullName + '</td>\
                             <td>' + item.course + '</td>\
-                            <td>' + getCorrectData(item.updated_at) + '</td>\
+                            <td style="min-width: 180px">' + getCorrectData(item.updated_at) + '</td>\
                             <td><button type="button" value="' + item.id + '" class="btn btn-primary editbtn btn-sm">Edit</button></td>\
                             <td><button type="button" value="' + item.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button></td>\
                         \</tr>');

@@ -3,7 +3,8 @@
 @section('content')
     <h1>No ajax students index Page</h1>
     <a class="btn btn-primary mt-5 mb-5" href="{{ route("students.create") }}" role="button">Create student</a>
-    <table class="table table-striped table-bordered">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <th scope="col">№</th>
@@ -21,8 +22,9 @@
                 <th>{{ $student->id }}</th>
                 <td>{{ $student->fullName }}</td>
                 <td>{{ $student->course }}</td>
-                <td>{{ $student->updated_at }}</td>
-                <td style="white-space: nowrap; ">
+                <td style="min-width: 180px">{{ $student->updated_at }}</td>
+                <td>
+                    <div class="d-flex">
                     <a class="btn btn-primary btn-sm float-left mr-1"
                        href="{{ route("students.show", ['student' => $student->id]) }}"
                     title="show">
@@ -42,6 +44,7 @@
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                     </form>
+                    </div>
                 </td>
             </tr>
         @empty
@@ -50,5 +53,5 @@
 
         </tbody>
     </table>
-
+    </div>
 @endsection
