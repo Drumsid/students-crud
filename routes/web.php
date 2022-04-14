@@ -21,4 +21,9 @@ Route::resources([
     "students" => StudentController::class,
 ]);
 
+Route::get("/title", function () {
+    $title = "test23423";
+    return view("test", compact("title"));
+});
+
 //Route::get('/users', [\App\Http\Controllers\TestController::class, "index"]);

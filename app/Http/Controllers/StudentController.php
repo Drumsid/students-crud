@@ -33,7 +33,7 @@ class StudentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StudentRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+//     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StudentRequest $request)
     {
@@ -41,8 +41,9 @@ class StudentController extends Controller
         $student = new Student();
         $student->fill($data);
         $student->save();
-        return redirect()
-            ->route('homepage')->with('success', 'Student added successfully!');
+        return response()->json(['success'=>'Laravel ajax example is being processed.']);
+//        return redirect()
+//            ->route('homepage')->with('success', 'Student added successfully!');
     }
 
     /**

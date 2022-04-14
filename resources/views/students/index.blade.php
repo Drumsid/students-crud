@@ -2,6 +2,7 @@
 
 @section('content')
     <h1>Index students</h1>
+    <a class="btn btn-primary mt-5 mb-5" href="{{ route("students.create") }}" role="button">Create student</a>
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
