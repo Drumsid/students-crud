@@ -15,6 +15,7 @@
 данные берутся из одной и той же таблицы. 
 
 ## Запуск на виндовс
+
 Пишем в корневой директории в консоли
 
 `docker-compose up --build -d`
@@ -32,6 +33,14 @@
 
 Проверяем в браузере [localhost:8085](http://localhost:8085/)
 
+## Возможные проблемы на Windows
+При запуске команды появляется такая ошибка 
+`the input device is not a TTY.  If you are using mintty, try prefixing the command with 'winpty'`
+Выполняем команду с префиксом `'winpty'`
+
+например, было `php run` будет `winpty php run`
+
+
 
 ## Запуск на linux
 
@@ -48,7 +57,7 @@
 
 Проверяем в браузере [localhost:8085](http://localhost:8085/)
 
-## Возможные проблемы
+## Возможные проблемы на Linux
 
 Если проект не запускается на linux, скорее всего проблемы с доступам к папкам,
 `/storage/logs` и `/storage/frameworks` и `/bootstrap/cache`, .
